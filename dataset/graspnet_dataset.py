@@ -4,20 +4,27 @@
 
 import os
 import sys
+
 import numpy as np
 import scipy.io as scio
+import torch
 from PIL import Image
 
-import torch
-from torch._six import container_abcs
+try:
+    from torch._six import container_abcs
+except ImportError:
+    import collections.abc as container_abcs
+
 from torch.utils.data import Dataset
 from tqdm import tqdm
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.dirname(BASE_DIR)
 sys.path.append(os.path.join(ROOT_DIR, 'utils'))
-from data_utils import CameraInfo, transform_point_cloud, create_point_cloud_from_depth_image,\
-                            get_workspace_mask, remove_invisible_grasp_points
+from data_utils import (CameraInfo, create_point_cloud_from_depth_image,
+                        get_workspace_mask, remove_invisible_grasp_points,
+                        transform_point_cloud)
+
 
 class GraspNetDataset(Dataset):
     def __init__(self, root, valid_obj_idxs, grasp_labels, camera='kinect', split='train', num_points=20000,
