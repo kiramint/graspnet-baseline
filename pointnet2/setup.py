@@ -3,10 +3,12 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
-from setuptools import setup
-from torch.utils.cpp_extension import BuildExtension, CUDAExtension
 import glob
 import os
+
+from setuptools import find_packages, setup
+from torch.utils.cpp_extension import BuildExtension, CUDAExtension
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
 _ext_src_root = "_ext_src"
@@ -17,6 +19,7 @@ _ext_headers = glob.glob("{}/include/*".format(_ext_src_root))
 
 setup(
     name='pointnet2',
+    packages=find_packages(),
     ext_modules=[
         CUDAExtension(
             name='pointnet2._ext',

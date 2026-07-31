@@ -2,21 +2,14 @@
     Author: chenxi-wang
 """
 
-import os
-import sys
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT_DIR = os.path.dirname(BASE_DIR)
-sys.path.append(ROOT_DIR)
-sys.path.append(os.path.join(ROOT_DIR, 'pointnet2'))
-sys.path.append(os.path.join(ROOT_DIR, 'utils'))
-
-import pytorch_utils as pt_utils
-from pointnet2_utils import CylinderQueryAndGroup
-from loss_utils import generate_grasp_views, batch_viewpoint_params_to_matrix
+from pointnet2 import pytorch_utils as pt_utils
+from pointnet2.pointnet2_utils import CylinderQueryAndGroup
+from utils.loss_utils import (batch_viewpoint_params_to_matrix,
+                              generate_grasp_views)
 
 
 class ApproachNet(nn.Module):

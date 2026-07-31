@@ -3,7 +3,6 @@
 """
 
 import os
-import sys
 
 import numpy as np
 import scipy.io as scio
@@ -18,12 +17,10 @@ except ImportError:
 from torch.utils.data import Dataset
 from tqdm import tqdm
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT_DIR = os.path.dirname(BASE_DIR)
-sys.path.append(os.path.join(ROOT_DIR, 'utils'))
-from data_utils import (CameraInfo, create_point_cloud_from_depth_image,
-                        get_workspace_mask, remove_invisible_grasp_points,
-                        transform_point_cloud)
+from utils.data_utils import (CameraInfo, create_point_cloud_from_depth_image,
+                              get_workspace_mask,
+                              remove_invisible_grasp_points,
+                              transform_point_cloud)
 
 
 class GraspNetDataset(Dataset):
@@ -258,11 +255,12 @@ def load_grasp_labels(root):
     obj_names = list(range(88))
     valid_obj_idxs = []
     grasp_labels = {}
+    base_dir = os.path.dirname(os.path.abspath(__file__))
     for i, obj_name in enumerate(tqdm(obj_names, desc='Loading grasping labels...')):
         if i == 18: continue
         valid_obj_idxs.append(i + 1) #here align with label png
         label = np.load(os.path.join(root, 'grasp_label', '{}_labels.npz'.format(str(i).zfill(3))))
-        tolerance = np.load(os.path.join(BASE_DIR, 'tolerance', '{}_tolerance.npy'.format(str(i).zfill(3))))
+        tolerance = np.load(os.path.join(base_dir, 'tolerance', '{}_tolerance.npy'.format(str(i).zfill(3))))
         grasp_labels[i + 1] = (label['points'].astype(np.float32), label['offsets'].astype(np.float32),
                                 label['scores'].astype(np.float32), tolerance)
 

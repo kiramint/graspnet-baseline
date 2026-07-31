@@ -4,18 +4,16 @@
 # LICENSE file in the root directory of this source tree.
 
 ''' Modified based on: https://github.com/erikwijmans/Pointnet2_PyTorch '''
-from __future__ import (
-    division,
-    absolute_import,
-    with_statement,
-    print_function,
-    unicode_literals,
-)
-import torch
-from torch.autograd import Function
-import torch.nn as nn
-import pytorch_utils as pt_utils
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals, with_statement)
+
 import sys
+
+import torch
+import torch.nn as nn
+from torch.autograd import Function
+
+from pointnet2 import pytorch_utils as pt_utils
 
 try:
     import builtins

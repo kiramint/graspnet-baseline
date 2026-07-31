@@ -2,27 +2,22 @@
     Author: chenxi-wang
 """
 
-import os
-import sys
-import numpy as np
-import open3d as o3d
 import argparse
 import importlib
-import scipy.io as scio
-from PIL import Image
+import os
+import sys
 
+import numpy as np
+import open3d as o3d
+import scipy.io as scio
 import torch
 from graspnetAPI import GraspGroup
+from PIL import Image
 
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.join(ROOT_DIR, 'models'))
-sys.path.append(os.path.join(ROOT_DIR, 'dataset'))
-sys.path.append(os.path.join(ROOT_DIR, 'utils'))
-
-from graspnet import GraspNet, pred_decode
-from graspnet_dataset import GraspNetDataset
-from collision_detector import ModelFreeCollisionDetector
-from data_utils import CameraInfo, create_point_cloud_from_depth_image
+from dataset.graspnet_dataset import GraspNetDataset
+from models.graspnet import GraspNet, pred_decode
+from utils.collision_detector import ModelFreeCollisionDetector
+from utils.data_utils import CameraInfo, create_point_cloud_from_depth_image
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--checkpoint_path', required=True, help='Model checkpoint path')

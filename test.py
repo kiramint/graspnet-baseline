@@ -1,23 +1,18 @@
 """ Testing for GraspNet baseline model. """
 
+import argparse
 import os
 import sys
-import numpy as np
-import argparse
 import time
 
+import numpy as np
 import torch
-from torch.utils.data import DataLoader
 from graspnetAPI import GraspGroup, GraspNetEval
+from torch.utils.data import DataLoader
 
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.join(ROOT_DIR, 'models'))
-sys.path.append(os.path.join(ROOT_DIR, 'dataset'))
-sys.path.append(os.path.join(ROOT_DIR, 'utils'))
-
-from graspnet import GraspNet, pred_decode
-from graspnet_dataset import GraspNetDataset, collate_fn
-from collision_detector import ModelFreeCollisionDetector
+from dataset.graspnet_dataset import GraspNetDataset, collate_fn
+from models.graspnet import GraspNet, pred_decode
+from utils.collision_detector import ModelFreeCollisionDetector
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset_root', required=True, help='Dataset root')
